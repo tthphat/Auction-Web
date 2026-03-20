@@ -1,0 +1,31 @@
+# Node modules
+node_modules/
+npm-debug.log*
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Build folders
+dist/
+build/
+.next/
+out/
+
+
+# Optional npm cache
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Windows files
+Thumbs.db
+
+# IDE
+.vscode/
+
+# Temporary files
+tmp/
+temp/
