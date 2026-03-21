@@ -25,6 +25,8 @@ import adminProductRouter from './routes/admin/product.route.js';
 import adminSystemRouter from './routes/admin/system.route.js';
 import sellerRouter from './routes/seller.route.js';
 // Import Middlewares
+import {loadUserInfo} from "./middlewares/loadUserInfo.mdw.js";
+import { loadCategory } from './middlewares/loadCategory.mdw.js';
 import { isAuthenticated, isSeller, isAdmin } from './middlewares/auth.mdw.js';
 import * as categoryModel from './models/category.model.js';
 import * as userModel from './models/user.model.js';
@@ -294,52 +296,12 @@ const fileFilter = (req, file, cb) => {
 // ============================================================
 
 // 3.1. Middleware User Info
-app.use(async function (req, res, next) {
-  if (typeof req.session.isAuthenticated === 'undefined') {
-    req.session.isAuthenticated = false;
-  }
-  
-  // Nếu user đã đăng nhập, kiểm tra xem thông tin có thay đổi không
-  if (req.session.isAuthenticated && req.session.authUser) {
-    const currentUser = await userModel.findById(req.session.authUser.id);
-    
-    // Nếu không tìm thấy user (bị xóa) hoặc thông tin đã thay đổi, cập nhật session
-    if (!currentUser) {
-      // User bị xóa, đăng xuất
-      req.session.isAuthenticated = false;
-      req.session.authUser = null;
-    } else {
-      // Cập nhật thông tin mới từ DB vào session
-      req.session.authUser = {
-        id: currentUser.id,
-        username: currentUser.username,
-        fullname: currentUser.fullname,
-        email: currentUser.email,
-        role: currentUser.role,
-        address: currentUser.address,
-        date_of_birth: currentUser.date_of_birth,
-        email_verified: currentUser.email_verified,
-        oauth_provider: currentUser.oauth_provider,
-        oauth_id: currentUser.oauth_id
-      };
-    }
-  }
-  
-  res.locals.isAuthenticated = req.session.isAuthenticated;
-  res.locals.authUser = req.session.authUser;
-  res.locals.isAdmin = req.session.authUser?.role === 'admin';
-  res.locals.isSeller = req.session.authUser?.role === 'seller';
-  next();
-});
-
+//=====================
+// Slide 6
+//=====================
+app.use(loadUserInfo); 
 // 3.2. Middleware Category (Chỉ load cho Client)
-app.use(async function (req, res, next) {
-  const plist = await categoryModel.findLevel1Categories();
-  const clist = await categoryModel.findLevel2Categories();
-  res.locals.lcCategories1 = plist;
-  res.locals.lcCategories2 = clist;
-  next();
-});
+app.use(loadCategory);
 
 // ============================================================
 // 4. CẤU HÌNH LOGIC ADMIN (Design Pattern)
