@@ -33,5 +33,14 @@ export const categoryController =
             category: data.category,
             parentCategories: data.parentCategories
         });
+    },
+
+    async addCategory(req, res)
+    {
+        const {name, parent_id} = req.body;
+        await categoryService.addCategory({name, parent_id});
+        res.redirect('/admin/categories/list');
     }
+
+
 }

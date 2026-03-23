@@ -53,12 +53,14 @@ router.get('/add', categoryController.add);
 
 router.get('edit/:id', categoryController.editByID);
 
-router.post('/add', async (req, res) => {
-    const { name, parent_id } = req.body;
-    await categoryModel.createCategory({ name, parent_id: parent_id || null });
-    req.session.success_message = 'Category added successfully!';
-    res.redirect('/admin/categories/list');
-});
+// router.post('/add', async (req, res) => {
+//     const { name, parent_id } = req.body;
+//     await categoryModel.createCategory({ name, parent_id: parent_id || null });
+//     req.session.success_message = 'Category added successfully!';
+//     res.redirect('/admin/categories/list');
+// });
+
+router.post('/add', categoryController.addCategory);
 
 router.post('/edit', async (req, res) => {
     const { id, name, parent_id } = req.body;
