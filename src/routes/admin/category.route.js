@@ -1,25 +1,32 @@
 import express from 'express';
-import * as categoryModel from '../../models/category.model.js';
+// import * as categoryModel from '../../models/category.model.js';
+import * as categoryController from "../../controllers/category.controller.js"
 const router = express.Router();
 
 // Define your admin category routes here
 
-router.get('/list', async (req, res) => {
-    const categories = await categoryModel.findAll();
-    const success_message = req.session.success_message;
-    const error_message = req.session.error_message;
+// router.get('/list', async (req, res) => {
+//     const categories = await categoryModel.findAll();
+//     const success_message = req.session.success_message;
+//     const error_message = req.session.error_message;
     
-    // Xóa message sau khi lấy ra
-    delete req.session.success_message;
-    delete req.session.error_message;
+//     // Xóa message sau khi lấy ra
+//     delete req.session.success_message;
+//     delete req.session.error_message;
     
-    res.render('vwAdmin/category/list', { 
-        categories,
-        empty: categories.length === 0,
-        success_message,
-        error_message
-    });
-});
+//     res.render('vwAdmin/category/list', { 
+//         categories,
+//         empty: categories.length === 0,
+//         success_message,
+//         error_message
+//     });
+// });
+
+//After devide into Controller - Service, router only have to do route function
+
+router.get('/list', categoryController.getList);
+
+
 
 router.get('/detail/:id', async (req, res) => {
     const id = req.params.id;
