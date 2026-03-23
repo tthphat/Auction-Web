@@ -37,17 +37,21 @@ router.get('/detail/:id', categoryController.getById);
 
 
 
-router.get('/add', async (req, res) => {
-    const parentCategories = await categoryModel.findLevel1Categories();
-    res.render('vwAdmin/category/add', { parentCategories });
-});
+// router.get('/add', async (req, res) => {
+//     const parentCategories = await categoryModel.findLevel1Categories();
+//     res.render('vwAdmin/category/add', { parentCategories });
+// });
+router.get('/add', categoryController.add);
 
-router.get('/edit/:id', async (req, res) => {
-    const id = req.params.id;
-    const category = await categoryModel.findByCategoryId(id);
-    const parentCategories = await categoryModel.findLevel1Categories();
-    res.render('vwAdmin/category/edit', { category, parentCategories });
-});
+
+// router.get('/edit/:id', async (req, res) => {
+//     const id = req.params.id;
+//     const category = await categoryModel.findByCategoryId(id);
+//     const parentCategories = await categoryModel.findLevel1Categories();
+//     res.render('vwAdmin/category/edit', { category, parentCategories });
+// });
+
+router.get('edit/:id', categoryController.editByID);
 
 router.post('/add', async (req, res) => {
     const { name, parent_id } = req.body;

@@ -17,6 +17,21 @@ export const categoryController =
         res.render('vwAdmin/category/detail', 
             {categories}
         );
-    }
+    },
 
+    async add(req, res)
+    {
+        const parentCategories = await categoryService.add;
+        res.render('vwAdmin/category/add', { parentCategories });
+    }, 
+
+    async editByID(req, res)
+    {
+        const id = req.params.id;
+        const data = await categoryService.editByID(id);
+        res.render('vwAdmin/category/edit', {
+            category: data.category,
+            parentCategories: data.parentCategories
+        });
+    }
 }
