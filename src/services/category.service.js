@@ -55,5 +55,14 @@ export const categoryService = {
             console.error("Service Error:", error);
             throw error; 
         }
-    }
+    },
+
+    async addCategory(data)
+    {
+        const categoryData = {
+            name: data.name,
+            parent_id: data.parent || null
+        };
+        return await categoryModel.createCategory(categoryData);
+    },
 }
