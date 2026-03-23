@@ -62,12 +62,14 @@ router.get('edit/:id', categoryController.editByID);
 
 router.post('/add', categoryController.addCategory);
 
-router.post('/edit', async (req, res) => {
-    const { id, name, parent_id } = req.body;
-    await categoryModel.updateCategory(id, { name, parent_id: parent_id || null });
-    req.session.success_message = 'Category updated successfully!';
-    res.redirect('/admin/categories/list');
-});
+// router.post('/edit', async (req, res) => {
+//     const { id, name, parent_id } = req.body;
+//     await categoryModel.updateCategory(id, { name, parent_id: parent_id || null });
+//     req.session.success_message = 'Category updated successfully!';
+//     res.redirect('/admin/categories/list');
+// });
+
+router.post('/edit', categoryController.update);
 
 router.post('/delete', async (req, res) => {
     const { id } = req.body;

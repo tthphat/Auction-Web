@@ -65,4 +65,24 @@ export const categoryService = {
         };
         return await categoryModel.createCategory(categoryData);
     },
+
+    async updateCategory(id, data) {
+        const updateData = {
+            name: data.name,
+            parent_id: data.parent_id || null //
+        };
+        
+        return await categoryModel.updateCategory(id, updateData);
+    },
+
+    async delete(id)
+    {
+        const hasProducts = await categoryModel.isCategoryHasProducts(id);
+
+        if (hasProducts) {
+            throw new Error('CATEGORY_HAS_PRODUCTS');
+        }
+
+        return await categoryModel.deleteCategory(id);
+    }
 }
