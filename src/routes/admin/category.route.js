@@ -1,6 +1,6 @@
 import express from 'express';
 // import * as categoryModel from '../../models/category.model.js';
-import * as categoryController from "../../controllers/category.controller.js"
+import { categoryController } from "../../controllers/category.controller.js"
 const router = express.Router();
 
 // Define your admin category routes here
@@ -23,16 +23,19 @@ const router = express.Router();
 // });
 
 //After devide into Controller - Service, router only have to do route function
-
 router.get('/list', categoryController.getList);
 
 
 
-router.get('/detail/:id', async (req, res) => {
-    const id = req.params.id;
-    const category = await categoryModel.findByCategoryId(id);
-    res.render('vwAdmin/category/detail', { category } );
-});
+// router.get('/detail/:id', async (req, res) => {
+//     const id = req.params.id;
+//     const category = await categoryModel.findByCategoryId(id);
+//     res.render('vwAdmin/category/detail', { category } );
+// });
+
+router.get('/detail/:id', categoryController.getById);
+
+
 
 router.get('/add', async (req, res) => {
     const parentCategories = await categoryModel.findLevel1Categories();
