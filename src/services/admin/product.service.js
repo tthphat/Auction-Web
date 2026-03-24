@@ -1,4 +1,5 @@
 import * as productModel from "../../models/product.model.js";
+import { userService } from "../../services/admin/user.service.js"
 
 export const productService = {
     async getAllProduct()
@@ -14,4 +15,10 @@ export const productService = {
 
         return filteredProducts;
     },
+
+    async getSeller()
+    {
+        const seller = await userService.getSeller();
+        return seller;
+    }
 }

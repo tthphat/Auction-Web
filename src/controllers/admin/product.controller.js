@@ -11,4 +11,18 @@ export const productController = {
         });
     },
 
+    async renderSeller(req, res)
+    {
+        try{
+            const sellers = await productService.getSeller();
+            res.render('vwAdmin/product/add', {sellers});
+        } catch (error) {
+            console.error('Error loading sellers:', error);
+            res.render('vwAdmin/product/add', { 
+                sellers: [],
+                // error_message: 'Failed to load sellers list'
+            });
+        }
+    },
+
 }

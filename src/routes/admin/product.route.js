@@ -33,19 +33,21 @@ const router = express.Router();
 router.get('/list', productController.renderAllProduct);
 
 
-router.get('/add', async (req, res) => {
-    try {
-        // Lấy danh sách sellers (users có role = 'seller')
-        const sellers = await userModel.findUsersByRole('seller');
-        res.render('vwAdmin/product/add', { sellers });
-    } catch (error) {
-        console.error('Error loading sellers:', error);
-        res.render('vwAdmin/product/add', { 
-            sellers: [],
-            error_message: 'Failed to load sellers list'
-        });
-    }
-});
+// router.get('/add', async (req, res) => {
+//     try {
+//         // Lấy danh sách sellers (users có role = 'seller')
+//         const sellers = await userModel.findUsersByRole('seller');
+//         res.render('vwAdmin/product/add', { sellers });
+//     } catch (error) {
+//         console.error('Error loading sellers:', error);
+//         res.render('vwAdmin/product/add', { 
+//             sellers: [],
+//             error_message: 'Failed to load sellers list'
+//         });
+//     }
+// });
+
+router.get('/add', productController.renderSeller);
 
 router.post('/add', async function (req, res) {
     const product = req.body;
