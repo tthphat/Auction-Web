@@ -1,4 +1,4 @@
-import * as categoryModel from "../models/category.model.js"
+import * as categoryModel from "../models/category.model.js";
 
 export const categoryService = {
     async getAllCaterogies()

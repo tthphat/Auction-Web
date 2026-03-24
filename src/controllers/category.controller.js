@@ -1,4 +1,4 @@
-import * as categoryService from "../services/category.service.js"
+import { categoryService } from "../services/category.service.js"
 
 export const categoryController = 
 {
