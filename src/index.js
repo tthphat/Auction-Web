@@ -10,6 +10,7 @@ import multer from 'multer';
 import { v4 as uuidv4 } from 'uuid';
 import fs from 'fs';
 import passport from './utils/passport.js';
+import flashMdw from './middlewares/flash.mdw.js';
 
 // Import Scheduled Jobs
 import { startAuctionEndNotifier } from './scripts/auctionEndNotifier.js';
@@ -48,6 +49,9 @@ app.use(session({
   saveUninitialized: true,
   cookie: { secure: false } // false chạy localhost
 }));
+
+//Them vao day de goi message
+flashMdw(app);
 
 // Initialize Passport
 app.use(passport.initialize());
@@ -394,6 +398,17 @@ app.get('/api/categories', async (req, res) => {
     res.status(500).json({ error: 'Failed to load categories' });
   }
 });
+
+
+// //Testing mdw message
+// app.get('/test-mdw', (req, res) => {
+//     req.session.success_message = 'Chúc mừng! Middleware đã hoạt động!';
+//     res.redirect('/test-show-flash');
+// });
+
+// app.get('/test-show-flash', (req, res) => {
+//     res.render('vwAdmin/category/detail'); // Hoặc bất kỳ page nào bạn có
+// });
 
 // Các Route Client (Đặt cuối cùng để tránh override)
 app.use('/', homeRouter);
