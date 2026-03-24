@@ -71,15 +71,17 @@ router.post('/add', categoryController.addCategory);
 
 router.post('/edit', categoryController.update);
 
-router.post('/delete', async (req, res) => {
-    const { id } = req.body;
-    const hasProducts = await categoryModel.isCategoryHasProducts(id);
-    if (hasProducts) {
-        req.session.error_message = 'Cannot delete category that has associated products.';
-        return res.redirect('/admin/categories/list');
-    }
-    await categoryModel.deleteCategory(id);
-    req.session.success_message = 'Category deleted successfully!';
-    res.redirect('/admin/categories/list');
-});
+// router.post('/delete', async (req, res) => {
+//     const { id } = req.body;
+//     const hasProducts = await categoryModel.isCategoryHasProducts(id);
+//     if (hasProducts) {
+//         req.session.error_message = 'Cannot delete category that has associated products.';
+//         return res.redirect('/admin/categories/list');
+//     }
+//     await categoryModel.deleteCategory(id);
+//     req.session.success_message = 'Category deleted successfully!';
+//     res.redirect('/admin/categories/list');
+// });
+
+router.post('/delete', categoryController.delete);
 export default router;
