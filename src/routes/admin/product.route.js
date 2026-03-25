@@ -1,9 +1,9 @@
 import express from 'express';
 import * as productModel from '../../models/product.model.js';
 import * as userModel from '../../models/user.model.js';
-import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
+import { uploadBasic as upload } from '../../config/multer.config.js';
 
 const router = express.Router();
 
@@ -129,17 +129,7 @@ router.post('/delete', async (req, res) => {
     res.redirect('/admin/products/list');
 });
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'public/uploads/');
-    },
-    filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        cb(null, uniqueSuffix + '-' + file.originalname);
-    }
-});
 
-const upload = multer({ storage: storage });
 
 router.post('/upload-thumbnail', upload.single('thumbnail'), async function (req, res) {
     res.json({
