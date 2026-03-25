@@ -16,8 +16,8 @@ import * as orderChatModel from '../models/orderChat.model.js';
 import { isAuthenticated } from '../middlewares/auth.mdw.js';
 import { sendMail } from '../utils/mailer.js';
 import db from '../utils/db.js';
-import multer from 'multer';
 import path from 'path';
+import { upload } from '../config/multer.config.js';
 const router = express.Router();
 
 const prepareProductList = async (products) => {
@@ -1071,31 +1071,7 @@ router.get('/complete-order', isAuthenticated, async (req, res) => {
 // IMAGE UPLOAD FOR PAYMENT/SHIPPING PROOFS
 // ===================================================================================
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'public/uploads/');
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, uniqueSuffix + '-' + file.originalname);
-  }
-});
 
-const upload = multer({ 
-  storage: storage,
-  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB max
-  fileFilter: function (req, file, cb) {
-    const allowedTypes = /jpeg|jpg|png|gif/;
-    const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
-    const mimetype = allowedTypes.test(file.mimetype);
-    
-    if (mimetype && extname) {
-      return cb(null, true);
-    } else {
-      cb(new Error('Chỉ chấp nhận file ảnh (jpg, png, gif)!'));
-    }
-  }
-});
 
 router.post('/order/upload-images', isAuthenticated, upload.array('images', 5), async (req, res) => {
   try {
