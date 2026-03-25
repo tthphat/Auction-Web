@@ -11,9 +11,6 @@ import { v4 as uuidv4 } from 'uuid';
 import fs from 'fs';
 import passport from './utils/passport.js';
 
-// Import Scheduled Jobs
-import { startAuctionEndNotifier } from './scripts/auctionEndNotifier.js';
-
 // Import Routes
 import homeRouter from './routes/home.route.js';
 import productRouter from './routes/product.route.js';
@@ -362,9 +359,4 @@ app.use('/', homeRouter);
 app.use('/products', productRouter);
 app.use('/account', accountRouter);
 
-app.listen(PORT, function () {
-  console.log(`Server is running on http://localhost:${PORT}`);
-  
-  // Start scheduled jobs
-  startAuctionEndNotifier(30); // Check every 30 seconds for ended auctions
-});
+export default app;
