@@ -338,22 +338,6 @@ app.use('/admin/system', adminSystemRouter);
 // Các Route Seller
 app.use('/seller', isAuthenticated, checkRole("seller"), sellerRouter);
 
-// API endpoint for categories (for search modal)
-app.get('/api/categories', async (req, res) => {
-  try {
-    const categories = await categoryModel.findAll();
-    // Add level information based on parent_id
-    const categoriesWithLevel = categories.map(cat => ({
-      ...cat,
-      level: cat.parent_id ? 2 : 1
-    }));
-    res.json({ categories: categoriesWithLevel });
-  } catch (error) {
-    console.error('Error fetching categories:', error);
-    res.status(500).json({ error: 'Failed to load categories' });
-  }
-});
-
 // Các Route Client (Đặt cuối cùng để tránh override)
 app.use('/', homeRouter);
 app.use('/products', productRouter);
