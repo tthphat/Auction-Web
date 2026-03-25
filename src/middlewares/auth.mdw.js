@@ -10,22 +10,6 @@ export function isAuthenticated(req, res, next) {
 // ==================
 // Slide 4
 // ===================
-export function isSeller(req, res, next) {
-    if (req.session.authUser.role === "seller") {
-        next();
-    } else {
-        res.render('403');
-
-    }
-}
-export function isAdmin(req, res, next) {
-    if (req.session.authUser.role === "admin") {
-        next();
-    } else {
-        res.render('403');
-    }
-}
-
 export function checkRole(role) {
     return function(req, res, next) {
         if (req.session.authUser?.role === role) {
