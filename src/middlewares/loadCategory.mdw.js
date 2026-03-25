@@ -1,3 +1,5 @@
+import * as categoryModel from "../models/category.model.js";
+
 export async function loadCategory(req, res, next) {
   const plist = await categoryModel.findLevel1Categories();
   const clist = await categoryModel.findLevel2Categories();

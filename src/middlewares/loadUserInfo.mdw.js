@@ -1,12 +1,14 @@
+import * as userModel from "../models/user.model.js";
+
 export async function loadUserInfo(req, res, next) {
   if (typeof req.session.isAuthenticated === 'undefined') {
     req.session.isAuthenticated = false;
   }
-  
+
   // Nếu user đã đăng nhập, kiểm tra xem thông tin có thay đổi không
   if (req.session.isAuthenticated && req.session.authUser) {
     const currentUser = await userModel.findById(req.session.authUser.id);
-    
+
     // Nếu không tìm thấy user (bị xóa) hoặc thông tin đã thay đổi, cập nhật session
     if (!currentUser) {
       // User bị xóa, đăng xuất
@@ -28,7 +30,7 @@ export async function loadUserInfo(req, res, next) {
       };
     }
   }
-  
+
   res.locals.isAuthenticated = req.session.isAuthenticated;
   res.locals.authUser = req.session.authUser;
   res.locals.isAdmin = req.session.authUser?.role === 'admin';
