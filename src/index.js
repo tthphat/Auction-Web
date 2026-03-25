@@ -10,7 +10,6 @@ import multer from 'multer';
 import { v4 as uuidv4 } from 'uuid';
 import fs from 'fs';
 import passport from './utils/passport.js';
-import flashMdw from './middlewares/flash.mdw.js';
 
 // Import Scheduled Jobs
 import { startAuctionEndNotifier } from './scripts/auctionEndNotifier.js';
@@ -28,7 +27,7 @@ import sellerRouter from './routes/seller.route.js';
 // Import Middlewares
 import {loadUserInfo} from "./middlewares/loadUserInfo.mdw.js";
 import { loadCategory } from './middlewares/loadCategory.mdw.js';
-import { isAuthenticated, isSeller, isAdmin } from './middlewares/auth.mdw.js';
+import { isAuthenticated, checkRole } from './middlewares/auth.mdw.js';
 import * as categoryModel from './models/category.model.js';
 import * as userModel from './models/user.model.js';
 
@@ -51,9 +50,6 @@ app.use(session({
   saveUninitialized: true,
   cookie: { secure: false } // false chạy localhost
 }));
-
-//Them vao day de goi message
-flashMdw(app);
 
 // Initialize Passport
 app.use(passport.initialize());
@@ -313,7 +309,7 @@ app.use(loadCategory);
 
 // A. Bảo mật trước tiên: Mọi route /admin/* phải qua cửa kiểm soát
 
-app.use('/admin', isAdmin);
+app.use('/admin', checkRole("admin"));
 
 // B. Thiết lập giao diện Admin (Bật cờ để Layout biết đường hiển thị Sidebar)
 app.use('/admin', function (req, res, next) {
@@ -343,7 +339,7 @@ app.use('/admin/categories', adminCategoryRouter);
 app.use('/admin/products', adminProductRouter);
 app.use('/admin/system', adminSystemRouter);
 // Các Route Seller
-app.use('/seller', isAuthenticated, isSeller, sellerRouter);
+app.use('/seller', isAuthenticated, checkRole("seller"), sellerRouter);
 
 // API endpoint for categories (for search modal)
 app.get('/api/categories', async (req, res) => {
@@ -360,17 +356,6 @@ app.get('/api/categories', async (req, res) => {
     res.status(500).json({ error: 'Failed to load categories' });
   }
 });
-
-
-// //Testing mdw message
-// app.get('/test-mdw', (req, res) => {
-//     req.session.success_message = 'Chúc mừng! Middleware đã hoạt động!';
-//     res.redirect('/test-show-flash');
-// });
-
-// app.get('/test-show-flash', (req, res) => {
-//     res.render('vwAdmin/category/detail'); // Hoặc bất kỳ page nào bạn có
-// });
 
 // Các Route Client (Đặt cuối cùng để tránh override)
 app.use('/', homeRouter);
