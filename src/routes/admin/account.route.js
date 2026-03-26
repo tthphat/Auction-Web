@@ -1,5 +1,5 @@
 import express from 'express';
-import { accountController } from '../../controllers/account.controller.js';
+import { accountController } from '../../container.js';
 const router = express.Router();
 
 // Define your admin category routes here
