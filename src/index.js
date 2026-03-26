@@ -25,6 +25,7 @@ import sellerRouter from './routes/seller.route.js';
 import { loadUserInfo } from './middlewares/loadUserInfo.mdw.js';
 import { loadCategory } from './middlewares/loadCategory.mdw.js';
 import { isAuthenticated, checkRole } from './middlewares/auth.mdw.js';
+import { errorMiddleware } from './middlewares/error.mdw.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -120,5 +121,10 @@ app.use('/seller', isAuthenticated, checkRole("seller"), sellerRouter);
 app.use('/', homeRouter);
 app.use('/products', productRouter);
 app.use('/account', accountRouter);
+
+// ============================================================
+// 6. MIDDLEWARE XỬ LÝ LỖI (Đặt cuối cùng)
+// ============================================================
+app.use(errorMiddleware);
 
 export default app;
