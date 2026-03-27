@@ -144,6 +144,9 @@ export function createAccountController({ accountService, accountRepository }) {
           currentUserId,
           req.query,
         );
+        if(res.locals.isAdmin){
+            return res.render('vwAdmin/account/profile');
+        }
         return res.render("vwAccount/profile", vm);
       } catch (err) {
         console.error(err);

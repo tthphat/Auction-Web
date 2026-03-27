@@ -93,16 +93,6 @@ app.use('/admin', function (req, res, next) {
     next();
 });
 
-// // C. Redirect thông minh cho trang chủ '/'
-// // Nếu là Admin mà vào trang chủ '/', tự động chuyển về Dashboard (/admin)
-// // Trừ khi họ bấm nút "View Website" (có tham số ?mode=client)
-// app.use('/', function(req, res, next) {
-//     if (req.path === '/' && res.locals.isAdmin && req.query.mode !== 'client') {
-//         return res.redirect('/admin');
-//     }
-//     next();
-// });
-
 // ============================================================
 // 5. ROUTES
 // ============================================================

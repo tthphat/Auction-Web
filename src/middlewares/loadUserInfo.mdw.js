@@ -34,6 +34,7 @@ export async function loadUserInfo(req, res, next) {
   res.locals.isAuthenticated = req.session.isAuthenticated;
   res.locals.authUser = req.session.authUser;
   res.locals.isAdmin = req.session.authUser?.role === 'admin';
+//   console.log(res.locals.isAdmin);
   res.locals.isSeller = req.session.authUser?.role === 'seller';
   next();
 };
