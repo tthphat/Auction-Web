@@ -863,7 +863,7 @@
 
       const result = await response.json();
 
-      if (result.success) {
+      if (result.ok) {
         await Swal.fire({
           icon: 'success',
           title: 'Success!',
@@ -905,7 +905,7 @@
 
       const res = await response.json();
 
-      if (res.success) {
+      if (res.ok) {
         await Swal.fire({
           icon: 'success',
           title: 'Confirmed!',
@@ -1007,7 +1007,7 @@
 
       const result = await response.json();
 
-      if (result.success) {
+      if (result.ok) {
         await Swal.fire({
           icon: 'success',
           title: 'Success!',
@@ -1049,7 +1049,7 @@
 
       const res = await response.json();
 
-      if (res.success) {
+      if (res.ok) {
         await Swal.fire({
           icon: 'success',
           title: 'Confirmed!',
@@ -1069,8 +1069,7 @@
 
   // Submit rating
   async function submitRating() {
-    const isBuyer = {{ eq order.buyer_id authUser.id }
-  };
+    const isBuyer = {{ eq order.buyer_id authUser.id }};
   const targetName = isBuyer ? '{{product.seller_fullname}}' : '{{product.highest_bidder_name}}';
 
   const { value: formValues } = await Swal.fire({
@@ -1134,7 +1133,7 @@
 
       const result = await response.json();
 
-      if (result.success) {
+      if (result.ok) {
         await Swal.fire({
           icon: 'success',
           title: 'Thank you!',
@@ -1166,7 +1165,7 @@
 
       const result = await response.json();
 
-      if (result.success) {
+      if (result.ok) {
         // Redirect to respective pages
         if (isBuyer) {
           window.location.href = '/account/auctions';
@@ -1214,7 +1213,7 @@
 
       const result = await response.json();
 
-      if (result.success) {
+      if (result.ok) {
         input.value = '';
         // Reload chat messages without closing chat widget
         const chatMessages = document.getElementById('chatMessages');
@@ -1223,7 +1222,7 @@
           const messagesResponse = await fetch('/products/order/' + orderId + '/messages');
           const messagesData = await messagesResponse.json();
 
-          if (messagesData.success) {
+          if (messagesData.ok) {
             // Update chat messages HTML
             chatMessages.innerHTML = messagesData.messagesHtml || '';
             // Scroll to bottom
