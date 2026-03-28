@@ -31,8 +31,8 @@ import { createSellerController } from "./controllers/seller.controller.js";
 import { createAccountController } from "./controllers/account.controller.js";
 import { createProductPublicController } from "./controllers/productPublic.controller.js";
 
-import { sendMail } from "./utils/mailer.js";
-import db from "./utils/db.js";
+import { sendMail } from "./services/mailer.js";
+import db from "./config/db.js";
 
 // ========================== HOME =========================
 

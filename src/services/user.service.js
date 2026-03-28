@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
 import * as upgradeRequestModel from '../models/upgradeRequest.model.js';
 import * as userModel from '../models/user.model.js';
-import { sendMail } from '../utils/mailer.js';
+import { sendMail } from './mailer.js';
 
 export const userService = {
     async getAllUsers() {

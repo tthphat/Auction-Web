@@ -1,4 +1,4 @@
-import { sendMail } from "../utils/mailer.js";
+import { sendMail } from "./mailer.js";
 import path from "path";
 import fs from "fs";
 

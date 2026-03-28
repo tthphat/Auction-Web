@@ -1,5 +1,5 @@
 import express from "express";
-import passport from "../utils/passport.js";
+import passport from "../config/passport.js";
 import { isAuthenticated } from "../middlewares/auth.mdw.js";
 import { accountController } from "../container.js";
 

@@ -4,7 +4,7 @@
  */
 
 import * as productModel from '../models/product.model.js';
-import { sendMail } from '../utils/mailer.js';
+import { sendMail } from '../services/mailer.js';
 
 /**
  * Kiểm tra các đấu giá kết thúc và gửi email thông báo

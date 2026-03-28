@@ -1,4 +1,4 @@
-import db from '../utils/db.js';
+import db from '../config/db.js';
 
 export function findByUserId(bidderId) {
   return db('upgrade_requests').where('bidder_id', bidderId).first();
