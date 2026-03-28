@@ -446,8 +446,8 @@ export function createProductPublicController({ productService }) {
     async postBuyNow(req, res) {
       try {
         if (!req.session.authUser) {
-          return res.status(401).json({ 
-            success: false, 
+          return res.status(401).json({
+            success: false,
             message: "You must be logged in to use Buy Now.",
             redirectUrl: `/account/signin?retUrl=/products/detail?id=${req.body?.productId}`
           });
@@ -457,17 +457,17 @@ export function createProductPublicController({ productService }) {
         const { productId } = req.body;
 
         const result = await productService.buyNow({ productId, userId });
-        
-        return res.json({ 
-          success: true, 
-          message: result.message, 
-          redirectUrl: result.redirectUrl 
+
+        return res.json({
+          success: true,
+          message: result.message,
+          redirectUrl: result.redirectUrl
         });
       } catch (err) {
         console.error(err);
-        return res.status(500).json({ 
-          success: false, 
-          message: err.message || "Buy now failed" 
+        return res.status(500).json({
+          success: false,
+          message: err.message || "Buy now failed"
         });
       }
     },

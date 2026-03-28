@@ -1031,9 +1031,9 @@ export function createProductPublicService({ productRepository, mailer }) {
 
       const maskedName = bidder.fullname
         ? bidder.fullname
-            .split("")
-            .map((char, index) => (index % 2 === 0 ? char : "*"))
-            .join("")
+          .split("")
+          .map((char, index) => (index % 2 === 0 ? char : "*"))
+          .join("")
         : "";
 
       return {
