@@ -805,7 +805,7 @@
       // Upload images
       const formData = new FormData();
       Array.from(paymentProofInput.files).forEach(file => {
-        formData.append('images', file);
+        formData.append('payment_proofs', file);
       });
       
       const uploadResponse = await fetch('/products/order/upload-images', {
@@ -820,7 +820,7 @@
       // Submit payment data
       const data = {
         payment_method: paymentMethod,
-        payment_proof_urls: uploadResult.urls,
+        payment_proof_urls: uploadResult.imageUrls,
         note: form.querySelector('[name="note"]').value,
         shipping_address: shippingAddress,
         shipping_phone: shippingPhone
@@ -949,7 +949,7 @@
         
         const formData = new FormData();
         Array.from(shippingProofInput.files).forEach(file => {
-          formData.append('images', file);
+          formData.append('payment_proofs', file);
         });
         
         const uploadResponse = await fetch('/products/order/upload-images', {
@@ -960,7 +960,7 @@
         if (!uploadResponse.ok) throw new Error('Image upload failed');
         
         const uploadResult = await uploadResponse.json();
-        imageUrls = uploadResult.urls;
+        imageUrls = uploadResult.imageUrls;
       }
       
       const data = {

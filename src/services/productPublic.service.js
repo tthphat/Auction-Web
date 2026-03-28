@@ -469,7 +469,7 @@ export function createProductPublicService({ productRepository, mailer }) {
           await trx("bidding_history").insert({
             product_id: productId,
             bidder_id: newHighestBidderId,
-            bid_price: newCurrentPrice,
+            current_price: newCurrentPrice,
             created_at: new Date(),
           });
         }
@@ -978,7 +978,8 @@ export function createProductPublicService({ productRepository, mailer }) {
         await trx("bidding_history").insert({
           product_id: productId,
           bidder_id: userId,
-          bid_price: product.buy_now_price,
+          current_price: product.buy_now_price,
+          is_buy_now: true,
           created_at: new Date(),
         });
       });
