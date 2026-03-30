@@ -58,8 +58,8 @@ export function createProductPublicController({ productService }) {
       return res.render(result.view, {
         ...result.data,
         authUser: req.session.authUser,
-        success_message,
-        error_message,
+        // success_message,
+        // error_message,
       });
     },
 
