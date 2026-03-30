@@ -21,18 +21,21 @@ import { createSellerRepository } from "./repositories/seller.repository.js";
 import { createAccountRepository } from "./repositories/account.repository.js";
 import { createProductPublicRepository } from "./repositories/productPublic.repository.js";
 import { createCategoryRepository } from "./repositories/category.repository.js";
+import { createSystemRepository } from "./repositories/system.repository.js";
 
 import { createHomeService } from "./services/home.service.js";
 import { createSellerService } from "./services/seller.service.js";
 import { createAccountService } from "./services/account.service.js";
 import { createProductPublicService } from "./services/productPublic.service.js";
 import { createCategoryService } from "./services/category.service.js";
+import { createSystemService } from "./services/system.service.js";
 
 import { createHomeController } from "./controllers/home.controller.js";
 import { createSellerController } from "./controllers/seller.controller.js";
 import { createAccountController } from "./controllers/account.controller.js";
 import { createProductPublicController } from "./controllers/productPublic.controller.js";
 import { createCategoryController } from "./controllers/category.controller.js";
+import { createSystemController } from "./controllers/system.controller.js";
 
 import { sendMail } from "./services/mailer.js";
 import db from "./config/db.js";
@@ -107,5 +110,11 @@ export const productPublicController = createProductPublicController({
 const categoryRepository = createCategoryRepository(categoryModel);
 const categoryService = createCategoryService({ categoryRepository });
 export const categoryController = createCategoryController({ categoryService });
+
+// ========================== SYSTEM =========================
+
+const systemRepository = createSystemRepository(systemSettingModel);
+const systemService = createSystemService({ systemRepository });
+export const systemController = createSystemController({ systemService });
 
 // ===========================================================
