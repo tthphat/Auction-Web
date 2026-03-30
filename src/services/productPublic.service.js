@@ -927,7 +927,7 @@ export function createProductPublicService({ productRepository, mailer }) {
           throw new Error("You do not have permission");
 
         await trx("rejected_bidders")
-          .insert({ product_id: productId, bidder_id: bidderId })
+          .insert({ product_id: productId, bidder_id: bidderId, seller_id: sellerId })
           .onConflict(["product_id", "bidder_id"])
           .ignore();
       });
