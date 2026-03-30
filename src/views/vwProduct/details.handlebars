@@ -564,7 +564,7 @@
             })
             .then(response => response.json())
             .then(data => {
-              if (data.success) {
+              if (data.ok || data.success) {
                 Swal.fire({
                   title: 'Rejected!',
                   text: 'The bidder has been rejected successfully.',
@@ -643,7 +643,7 @@
             })
             .then(response => response.json())
             .then(data => {
-              if (data.success) {
+              if (data.ok || data.success) {
                 // Keep spinner spinning until page reloads
                 Swal.fire({
                   title: 'Unbanned!',
