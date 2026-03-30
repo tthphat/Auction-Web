@@ -55,11 +55,6 @@ export function createProductPublicController({ productService }) {
         });
       }
 
-      const success_message = req.session.success_message;
-      const error_message = req.session.error_message;
-      delete req.session.success_message;
-      delete req.session.error_message;
-
       return res.render(result.view, {
         ...result.data,
         authUser: req.session.authUser,

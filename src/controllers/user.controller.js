@@ -4,11 +4,6 @@ export const userController = {
     async getList(req, res) {
         try {
             const users = await userService.getAllUsers();
-            const success_message = req.session.success_message;
-            const error_message = req.session.error_message;
-            
-            delete req.session.success_message;
-            delete req.session.error_message;
             
             res.render('vwAdmin/users/list', { 
                 users,
@@ -53,9 +48,6 @@ export const userController = {
         try {
             const id = req.params.id;
             const user = await userService.getUserById(id);
-            const error_message = req.session.error_message;
-            
-            delete req.session.error_message;
             
             res.render('vwAdmin/users/edit', { user, error_message });
         } catch (error) {

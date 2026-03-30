@@ -26,6 +26,7 @@ import { loadUserInfo } from './middlewares/loadUserInfo.mdw.js';
 import { loadCategory } from './middlewares/loadCategory.mdw.js';
 import { isAuthenticated, checkRole } from './middlewares/auth.mdw.js';
 import { errorMiddleware } from './middlewares/error.mdw.js';
+import flashMdw from './middlewares/flash.mdw.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -46,6 +47,9 @@ app.use(session({
   saveUninitialized: true,
   cookie: { secure: false } // false chạy localhost
 }));
+
+//Them vao day de goi message
+flashMdw(app);
 
 // Initialize Passport
 app.use(passport.initialize());
